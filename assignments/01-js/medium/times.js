@@ -9,5 +9,19 @@ There is no automated test for this one, this is more for you to understand time
 */
 
 function calculateTime(n) {
-    return 0.01;
+    const beforeProcess = new Date()
+    const timeBeforeProcess = beforeProcess.getTime()
+
+    for(let i=1; i<=n; i++) {
+
+    }
+
+    const afterProcess = new Date()
+    const timeAfterProcess = afterProcess.getTime()
+
+    const timeTaken = timeAfterProcess-timeBeforeProcess
+    return timeTaken
 }
+
+const ans = calculateTime(1000000000);
+console.log(ans);

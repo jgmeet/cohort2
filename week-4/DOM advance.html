@@ -1,0 +1,79 @@
+<html>
+
+    <script>
+        // -> ugly way
+        function addToDo() {
+            const title = document.getElementById("title").value
+            const description = document.getElementById("description").value
+
+            const previousHTML = document.getElementById("add to do").innerHTML
+            document.getElementById("add to do").innerHTML = previousHTML + `<div>
+                <div>${title}</div>
+                <div>${description}</div>
+                <button>Mark as done</button>
+            </div>`
+        }
+
+        
+        // -->> more cleaner way
+        let id = 1;
+        function markAsDone(todoId) {
+            const div = document.getElementById(todoId)
+            div.children[2].innerHTML = "Done 🥳🥳"
+        }
+
+        function addElements(title, description, id) {
+            const outerDiv = document.createElement("div")
+            // creating title
+            const titleDiv = document.createElement("div")
+            titleDiv.innerHTML = title
+            // creating description
+            const descritptionDiv = document.createElement("div")
+            descritptionDiv.innerHTML = description
+            // creating button
+            const btn = document.createElement("button")
+            btn.innerHTML = "Mark as done"
+
+            outerDiv.setAttribute("id", id) // allocating unique id to this div
+            btn.setAttribute("onclick", `markAsDone(${id})`)
+            
+            // append all of the above content to outer div
+            outerDiv.appendChild(titleDiv)
+            outerDiv.appendChild(descritptionDiv)
+            outerDiv.appendChild(btn)
+
+            return outerDiv; 
+        }
+
+        function addToDo1() {
+            const title = document.getElementById("title").value
+            const description = document.getElementById("description").value
+
+            document.getElementById("add to do").appendChild(addElements(title, description, id++)) 
+        }
+
+        function updateAccToState(state) {
+            document.getElementById("add to do") = ""
+            for(let i=0; i<state.length; i++) {
+                const child = addElements(state[i].title, state[i].description, id++)
+                document.getElementById("add to do").appendChild(child)
+            }
+        }
+
+        window.setInterval(async ()=>{
+            const response = await fetch("some server....")
+            const jsonResponse = await response.json()
+            updateAccToState(jsonResponse.state)
+        }, 5000)
+
+    </script>
+
+    <body>
+        <input id="title" type="text" placeholder="Title"> <br></br>
+        <input id="description" type="text" placeholder="Description"> <br></br>
+
+        <button onclick="addToDo1()">Add todo</button> <br></br>
+        <div id="add to do"></div>
+    </body>
+
+</html>

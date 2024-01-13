@@ -8,7 +8,7 @@ console.log(arr)
 arr.pop()
 console.log(arr)
 
-// unshift(val) -> adds valto the front of the array
+// unshift(val) -> adds val to the front of the array
 arr.unshift(2)
 console.log(arr)
 

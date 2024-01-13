@@ -5,8 +5,22 @@
   Once you've implemented the logic, test your code by running
 */
 
+function isVowel(ch) {
+  return ch=='a' || ch=='e' || ch=='i' || ch=='o' || ch=='u'
+}
+
 function countVowels(str) {
-    // Your code here
+  // Your code here
+  let numOFVowels = 0
+  let newStr = str.toLowerCase()
+
+  for(let i=0; i<str.length; i++) {
+    if(isVowel(newStr[i])) {
+      numOFVowels++
+    }
+  }
+
+  return numOFVowels
 }
 
 module.exports = countVowels;

@@ -4,6 +4,26 @@
 */
 
 function isPalindrome(str) {
+  let newStr = ""
+  for(let i=0; i<str.length; i++) {
+      let ref = 'a'
+      let refVal = ref.charCodeAt(0)
+      let char = str[i].toLowerCase()
+      let asciiVal = char.charCodeAt(0)-refVal
+      console.log(char + " " + asciiVal)
+      if(asciiVal >= 0 && asciiVal < 26) {
+      newStr += char
+      }
+  }
+
+  let s=0, e=newStr.length-1
+  while(s<e) {
+      if(newStr[s] != newStr[e]) {
+      return false;
+      }
+      s++, e--;
+  }
+
   return true;
 }
 

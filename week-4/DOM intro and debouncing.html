@@ -1,0 +1,65 @@
+<html>
+    <style>
+        .container {
+            background-color: aqua;
+            font-size: 30;
+            color: lightcoral;
+        }
+
+        #calculateSum {
+            font-size: 30;
+        }
+    </style>
+
+    <script>
+        let timer;
+        function debounceGetSum() {
+            clearTimeout(timer)
+            timer = setTimeout(function() {
+                getSum1()
+                finished = true
+            }, 1000);
+
+        }
+
+        function getSum1() {
+            const num1 = document.getElementById("n1").value;
+            const num2 = document.getElementById("n2").value;
+
+            fetch("https://b6fa86c5-ffe8-4457-9b40-a0d89f2bd43c-00-2qoa067kfz7gs.sisko.replit.dev/sum?a="+num1+"&b="+num2).then(
+                function(response) {
+                    response.text().then(function(ans) {
+                        document.getElementById("calculateSum").innerHTML = ans
+                    })
+                }
+            )
+        }
+
+        async function getSum() {
+            const num1 = document.getElementById("n1").value;
+            const num2 = document.getElementById("n2").value;
+            // This is the fronted logic
+            // const elem = document.getElementById("calculateSum");
+            // elem.innerHTML = parseInt(num1)+parseInt(num2);
+
+            // We will make request to backend to calc sum
+            const response = await fetch("https://b6fa86c5-ffe8-4457-9b40-a0d89f2bd43c-00-2qoa067kfz7gs.sisko.replit.dev/sum?a="+num1+"&b="+num2)
+            console.log(response)
+            const ans = await response.text()
+            document.getElementById("calculateSum").innerHTML = ans;
+
+            // **** we can use axios also -> much easier
+            // const response = await axios("https://b6fa86c5-ffe8-4457-9b40-a0d89f2bd43c-00-2qoa067kfz7gs.sisko.replit.dev/sum?a="+num1+"&b="+num2)
+            // document.getElementById("calculateSum").innerHTML = response.data;
+        }
+    </script>
+
+    <body>
+        <input oninput="debounceGetSum()" id="n1" class="container" type="text" placeholder="number 1"> <br></br>
+        <input oninput="debounceGetSum()" id="n2" class="container" type="text" placeholder="number 2"> <br></br>
+        <!-- <button class="container" onclick="getSum()">Calculate Sum</button> <br></br> -->
+
+        <div id="calculateSum"></div>
+    </body>
+
+</html>

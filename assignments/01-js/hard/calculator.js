@@ -16,6 +16,46 @@
   Once you've implemented the logic, test your code by running
 */
 
-class Calculator {}
+class Calculator {
+  constructor(result) {
+    this.result = result
+  }
+
+  add(num) {
+    this.result += num
+  }
+
+  subtract(num) {
+    this.result -= num
+  }
+
+  multiply(num) {
+    this.result = this.result*num
+  }
+
+  divide(num) {
+    this.result = this.result/num
+  }
+
+  clear() {
+    this.result = 0
+  }
+
+  getResult() {
+    return this.result
+  }
+
+  calculate(str) {
+    let newStr = str.replace(/ +/g, '') // string without any space
+    if(!inputCorrect(str)) {
+      throw ("Error!")
+    }
+
+    let newResult = 0
+    
+
+  }
+
+}
 
 module.exports = Calculator;
