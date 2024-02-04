@@ -1,0 +1,39 @@
+<!-- React way to increase counter by button press -->
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="button"></div>
+        
+        <script>
+            let state = {
+                count: 0
+            }
+
+            function onButtonPress() {
+                state.count++
+                console.log(state.count)
+                reRenderButton()
+            }
+
+            function reRenderButton() {
+                // *** need to delete prev button else it will keep adding on new buttons
+                document.getElementById("button").innerHTML = ""
+                const component = buttonComponent(state.count)
+                console.log(component)
+                document.getElementById("button").appendChild(component)
+            }
+
+            function buttonComponent(count) {
+                const button = document.createElement("button")
+                button.innerHTML = `Counter ${count}`
+                button.setAttribute("onclick", "onButtonPress()")
+                return button
+            }
+
+            reRenderButton()
+
+        </script>
+
+    </body>
+
+</html>

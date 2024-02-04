@@ -32,27 +32,27 @@
 //my own asynchronous function using promise
 const fs = require("fs")
 
-function readMyFile() {
-    console.log("inside readMyFile")
-    var p = new Promise(function(resolve) {
-        console.log("inside promise")
-        fs.readFile("file.txt", "utf-8", function(err, data) {
-                console.log("before resolving data")
-                resolve(data)
-            }
-        )
-    })
-    return p;
-}
+// function readMyFile() {
+//     console.log("inside readMyFile")
+//     var p = new Promise(function(resolve) {
+//         console.log("inside promise")
+//         fs.readFile("file.txt", "utf-8", function(err, data) {
+//                 console.log("before resolving data")
+//                 resolve(data)
+//             }
+//         )
+//     })
+//     return p;
+// }
 
-function printData(data) {
-    console.log(data)
-    console.log("inside printData function")
-}
+// function printData(data) {
+//     console.log(data)
+//     console.log("inside printData function")
+// }
 
-console.log("before calling readMyFile function")
-readMyFile().then(printData)
-console.log("after calling readMyFile function")
+// console.log("before calling readMyFile function")
+// readMyFile().then(printData)
+// console.log("after calling readMyFile function")
 
 
 // Async await
@@ -63,13 +63,15 @@ console.log("after calling readMyFile function")
 //         }, 2000)
 //     })
 // }
-// function printMessage1() {
-//     return new Promise(function(resolve) {
-//         setTimeout(function() {
-//             resolve("This is my message1....")
-//         }, 3000)
-//     })
-// }
+function printMessage1() {
+    console.log("before promise")
+    let ans = new Promise(function(resolve) {
+        setTimeout(function() {
+            resolve("This is my message1....")
+        }, 3000)
+    })
+    console.log("after promise")
+}
 
 // function main() {
 //     console.log("Before printMessage() called")
@@ -81,13 +83,13 @@ console.log("after calling readMyFile function")
 
 // main()
 
-// async function main1() {
-//     console.log("Before await printMessage() called")
-//     let val = await printMessage1()
-//     console.log(val)
-//     console.log("After await printMessage() called")
-// }
+async function main1() {
+    console.log("Before await printMessage() called")
+    let val = await printMessage1()
+    console.log(val)
+    console.log("After await printMessage() called")
+}
 
-// main1()
+main1()
 // console.log("After main1() called")
 
