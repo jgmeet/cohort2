@@ -11,19 +11,31 @@ router.post('/signup', async (req, res) => {
     console.log(user, pass)
     console.log("in admin signup")
 
-    await Admin.create({
+    Admin.findOne({
         username: user,
         password: pass
-    })
-
-    // const admin = new Admin({
-    //     username: user,
-    //     password: pass
-    // })
-
-    // admin.save()
-    res.json({
-        msg: "admin created successfully"
+    }).then(async (val) => {
+        if(val) {
+            res.send({
+                msg: "user already exists"
+            })
+        }
+        else {
+            await Admin.create({
+                username: user,
+                password: pass
+            })
+        
+            // const admin = new Admin({
+            //     username: user,
+            //     password: pass
+            // })
+        
+            // admin.save()
+            res.send({
+                msg: "admin created successfully"
+            })
+        }
     })
 });
 
@@ -31,14 +43,12 @@ router.post('/courses', adminMiddleware, async (req, res) => {
     // Implement course creation logic
     const title = req.body.title
     const description = req.body.description
-    const imageLink = req.body.imageLink
     const price = req.body.price
 
     const newCourse = await Course.create({
         title,
         description,
-        price,
-        imageLink
+        price
     })
 
     res.json({
@@ -51,8 +61,8 @@ router.post('/courses', adminMiddleware, async (req, res) => {
 
 router.get('/courses', adminMiddleware, async (req, res) => {
     // Implement fetching all courses logic
-    const response = await Course.get({})
-    console.log(courses)
+    const response = await Course.find()
+    console.log(response)
     res.json({
         courses: response
     })

@@ -2,18 +2,18 @@ const mongoose = require('mongoose');
 const { string, intersection } = require('zod');
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://jgmeet:ZF305qFuVXwVqsyl@cluster0.xkeqc5g.mongodb.net/course_selling_app');
+mongoose.connect('mongodb://localhost:27017/');
 
 // Define schemas
 const AdminSchema = new mongoose.Schema({
     // Schema definition here
-    name: String,
+    username: String,
     password: String
 });
 
 const UserSchema = new mongoose.Schema({
     // Schema definition here
-    name: String,
+    username: String,
     password: String,
     purchasedCourses: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -25,9 +25,7 @@ const CourseSchema = new mongoose.Schema({
     // Schema definition here
     title: String,
     description: String,
-    price: Number,
-    imageLink: String
-
+    price: Number
 });
 
 const Admin = mongoose.model('Admin', AdminSchema);

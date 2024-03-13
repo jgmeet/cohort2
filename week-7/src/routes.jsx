@@ -7,7 +7,7 @@ const Landing = React.lazy(()=> import("./components/Landing"))
 
 function App() {
   return (
-    <div>
+    <>
      <BrowserRouter>
         <AppBar></AppBar>
         <Suspense fallback={<div>Loading....</div>}>
@@ -17,7 +17,7 @@ function App() {
           </Routes>
         </Suspense>
      </BrowserRouter>
-    </div>
+    </>
   )
 }
 

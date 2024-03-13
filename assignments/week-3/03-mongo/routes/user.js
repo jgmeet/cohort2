@@ -9,19 +9,33 @@ router.post('/signup', async (req, res) => {
     const user = req.body.username
     const pass = req.body.password
 
-    await User.create({
-        user,
-        pass
+    User.findOne({
+        username: user,
+        password: pass
+    }).then(async (val) => {
+        if(val) {
+            res.json({
+                msg: "User already exists"
+            })
+            return
+        }
+        else {
+            await User.create({
+                username: user,
+                password: pass
+            })
+        
+            res.json({
+                msg: "User created successfully"
+            })
+        }
     })
-
-    res.json({
-        msg: "User created successfully"
-    })
+    
 });
 
 router.get('/courses', async (req, res) => {
     // Implement listing all courses logic
-    const response = await Course.get({})
+    const response = await Course.find()
 
     res.json({
         courses: response
@@ -30,13 +44,16 @@ router.get('/courses', async (req, res) => {
 
 router.post('/courses/:courseId', userMiddleware, async (req, res) => {
     // Implement course purchase logic
-    const coureseId = req.params.courseId
+    const courseId = req.params.courseId
     const username = req.headers.username
 
+    console.log(courseId, username);
+
     await User.updateOne({
-        username: username,
-        purchasedCourses: {
-            "$push": courseId
+        username: username
+    }, {
+        "$push": {
+            purchasedCourses: courseId
         }
     });
 
@@ -49,10 +66,16 @@ router.post('/courses/:courseId', userMiddleware, async (req, res) => {
 router.get('/purchasedCourses', userMiddleware, async (req, res) => {
     // Implement fetching purchased courses logic
 
-    const response = await Course.get({})
+    const user = await User.findOne({
+        username: req.headers.username
+    })
 
-    req.json({
-        courses: response
+    const purchased = await Course.find({
+        _id: { $in: user.purchasedCourses}
+    })
+
+    res.json({
+        courses: purchased.map((course) => course.title)
     })
 });
 

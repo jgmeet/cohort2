@@ -5,8 +5,9 @@ const mongoose = require("mongoose")
 const app = express()
 app.use(express.json())
 
-mongoose.connect("mongodb+srv://jgmeet:ZF305qFuVXwVqsyl@cluster0.xkeqc5g.mongodb.net/")
-// creates an database with name 'test' and then stores data in 'user' table
+// mongoose.connect("mongodb+srv://jgmeet:ZF305qFuVXwVqsyl@cluster0.xkeqc5g.mongodb.net/")
+mongoose.connect("mongodb://localhost:27017/")
+// creates an database with name 'test' and then stores data in 'users' table
 const User = mongoose.model('users', {
   name: String,
   username: String,
